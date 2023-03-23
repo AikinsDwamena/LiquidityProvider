@@ -1,10 +1,9 @@
 package com.example.liquidityProvider.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import enums.FXName;
+import enums.RequestStatus;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,15 +18,19 @@ public class PurchaseRequest {
     @Id
     private Long id;
 
-    private String fxName;
+    @Enumerated()
+    private FXName fxName;
 
     private LocalDateTime requestDate;
 
     private Double requestAmount;
 
-    private String  requestStatus;
+    @Enumerated()
+    private RequestStatus requestStatus;
 
-    private String  tradersAccount;
+    private String  tradersBankAccount;
+
+    private String providerName;
 
     @ManyToOne
     @JoinColumn(name = "trader_email")

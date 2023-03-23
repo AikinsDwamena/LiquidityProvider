@@ -1,2 +1,4 @@
-package enums;public enum RequestStatus {
+package enums;
+
+public enum RequestStatus {
 }

@@ -1,2 +1,23 @@
-package com.example.liquidityProvider.models;public class Provider {
+package com.example.liquidityProvider.models;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Provider {
+
+    @Id
+    Long providerId;
+
+    String providerName;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "provider")
+    List<Currency> currencies ;
 }

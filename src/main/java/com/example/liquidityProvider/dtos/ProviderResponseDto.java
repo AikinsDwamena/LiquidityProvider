@@ -1,2 +1,4 @@
-package com.example.liquidityProvider.dtos;public record ProviderRequestDto() {
+package com.example.liquidityProvider.dtos;
+
+public record ProviderResponseDto() {
 }
