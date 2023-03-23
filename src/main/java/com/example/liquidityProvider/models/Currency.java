@@ -2,10 +2,7 @@ package com.example.liquidityProvider.models;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -17,6 +14,7 @@ import lombok.*;
 public class Currency {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     String currencyName;
 
     Integer numberAvailable;

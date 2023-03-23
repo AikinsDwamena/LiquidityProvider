@@ -14,6 +14,7 @@ import java.util.List;
 public class Provider {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long providerId;
 
     String providerName;

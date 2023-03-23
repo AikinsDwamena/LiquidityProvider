@@ -1,8 +1,8 @@
 package com.example.liquidityProvider.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import enums.FXName;
-import enums.RequestStatus;
+import com.example.liquidityProvider.enums.FXName;
+import com.example.liquidityProvider.enums.RequestStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,16 +16,17 @@ import java.time.LocalDateTime;
 @Builder
 public class PurchaseRequest {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Enumerated()
+    @Enumerated(EnumType.STRING)
     private FXName fxName;
 
     private LocalDateTime requestDate;
 
     private Double requestAmount;
 
-    @Enumerated()
+    @Enumerated(EnumType.STRING)
     private RequestStatus requestStatus;
 
     private String  tradersBankAccount;
@@ -36,5 +37,7 @@ public class PurchaseRequest {
     @JoinColumn(name = "trader_email")
     @JsonBackReference
     private  Trader buyer;
+
+
 
 }
