@@ -11,17 +11,17 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Currency {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     String currencyName;
 
-    Integer numberAvailable;
+    Double amountAvailable;
 
-    Double price;
+    Double rate;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "provider_id")
     @JsonBackReference
     Provider provider;

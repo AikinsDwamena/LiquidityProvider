@@ -1,5 +1,6 @@
 package com.example.liquidityProvider.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Provider {
 
     @Id
@@ -19,6 +21,7 @@ public class Provider {
 
     String providerName;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "provider")
-    List<Currency> currencies ;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "provider")
+    @JsonManagedReference
+    List<Currency> currencies;
 }
