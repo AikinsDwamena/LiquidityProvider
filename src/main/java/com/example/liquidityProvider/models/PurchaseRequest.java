@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@ToString
 public class PurchaseRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
