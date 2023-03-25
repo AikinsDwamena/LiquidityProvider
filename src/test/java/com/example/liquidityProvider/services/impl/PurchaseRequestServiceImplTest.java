@@ -48,6 +48,16 @@ class PurchaseRequestServiceImplTest {
             .requestAmount(6000.0)
             .providerName("Nazdaq")
             .build();
+
+    private final PurchaseRequest purchaseRequest1 = PurchaseRequest.builder()
+            .buyer(trader)
+            .fxName(FXName.CEDI)
+            .tradersBankAccount("12345678")
+            .requestStatus(RequestStatus.CANCELLED)
+            .requestDate(LocalDateTime.now())
+            .requestAmount(3.0)
+            .providerName("Nazdaq")
+            .build();
     @Mock
     private TokenAttributesExtractorImpl tokenAttributesExtractor;
     @Mock
@@ -82,11 +92,26 @@ class PurchaseRequestServiceImplTest {
     }
 
     @Test
-    void makeRequest_givenAuthenticationAndRequestDto_shouldReturnSuccess() throws ResourceNotFoundException {
-        String expectedResult = "request has been successfully made";
+    void makeRequest_givenAuthenticationAndRequestDto_shouldReturnFulfilled() throws ResourceNotFoundException {
+        String expectedResult = "request has been fulfilled";
         Mockito.doReturn("aikins.dwamena@turntabl.io").when(tokenAttributesExtractor).extractEmailFromToken(any());
         Mockito.doReturn(Optional.of(trader)).when(traderRepository).findByEmail(any());
         Mockito.doReturn(purchaseRequest).when(requestMapper).requestDtoToRequest(any(), any());
+
+        purchaseRequestServiceimpl.makeRequest(requestDto, jwtAuthenticationToken);
+
+        Mockito.verify(tokenAttributesExtractor, Mockito.times(1)).extractEmailFromToken(any());
+        Mockito.verify(requestMapper, Mockito.times(1)).requestDtoToRequest(any(), any());
+        Mockito.verify(purchaseRequestRepository, Mockito.times(1)).save(any());
+        Assertions.assertEquals(expectedResult, purchaseRequestServiceimpl.makeRequest(requestDto, jwtAuthenticationToken));
+    }
+
+    @Test
+    void makeRequest_givenAuthenticationAndRequestDto_shouldReturnCancelled() throws ResourceNotFoundException {
+        String expectedResult = "request has been cancelled";
+        Mockito.doReturn("aikins.dwamena@turntabl.io").when(tokenAttributesExtractor).extractEmailFromToken(any());
+        Mockito.doReturn(Optional.of(trader)).when(traderRepository).findByEmail(any());
+        Mockito.doReturn(purchaseRequest1).when(requestMapper).requestDtoToRequest(any(), any());
 
         purchaseRequestServiceimpl.makeRequest(requestDto, jwtAuthenticationToken);
 
